@@ -1,0 +1,51 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class StudentGradeTracker1 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<String> students = new ArrayList<>();
+        List<Double> grades = new ArrayList<>();
+        
+        while (true) {
+            System.out.print("Enter student name (or 'exit' to finish): ");
+            String name = scanner.nextLine();
+            if (name.equalsIgnoreCase("exit")) {
+                break;
+            }
+            
+            System.out.print("Enter grade for " + name + ": ");
+            while (true) {
+                try {
+                    double grade = scanner.nextDouble();
+                    scanner.nextLine(); // Consume the newline character
+                    students.add(name);
+                    grades.add(grade);
+                    break; // Break out of the grade input loop
+                } catch (Exception e) {
+                    System.out.print("Invalid input. Please enter a valid grade: ");
+                    scanner.nextLine(); // Clear the invalid input
+                }
+            }
+        }
+
+        // Calculate average grade
+        double total = 0;
+        for (double grade : grades) {
+            total += grade;
+        }
+        double average = grades.isEmpty() ? 0 : total / grades.size();
+
+        // Display results
+        System.out.println("\nStudent Grades:");
+        for (int i = 0; i < students.size(); i++) {
+            System.out.println(students.get(i) + ": " + grades.get(i));
+        }
+        System.out.println("Average Grade: " + average);
+        
+        // Close the scanner
+        scanner.close();
+    }
+}
